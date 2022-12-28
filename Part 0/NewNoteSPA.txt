@@ -1,0 +1,12 @@
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+server-->browser: HTML-code
+browser-server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa/main.css
+server-->browser: main.css
+browser-server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa/main.js
+server-->browser: main.js
+
+note over browser:
+browser starts executing js-code that ask to the server to put JSON data
+end note
+
+browser->server: HTTP PUT { content: "New note test", date:"2022-12-29"}] https://studies.cs.helsinki.fi/exampleapp/notes
