@@ -23,11 +23,14 @@ const Header = ({course})=>{
 const Content = ({parts}) =>{
   return[
     parts.map((part)=>{
-      return(<p>{part.name} {part.exercises}</p>)
+      return(<Part part={part}/>)
     })
   ]
 }
+const Part = ({part}) =>{
+  return(<p>{part.name} {part.exercises}</p>)
+}
 const Total = ({num}) =>{
-  return(<p>Number of exercises{num}</p>)
+  return(<p>Number of exercises {num}</p>)
 }
 export default App
