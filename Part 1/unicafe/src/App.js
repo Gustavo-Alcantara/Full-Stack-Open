@@ -17,13 +17,18 @@ const App = () => {
   )
 }
 const Statistics = ({stats}) =>{
+  const sum = stats[0]+stats[1]+stats[2]
+  const avag = (stats[0]-stats[2])/sum
+
   return(
     <>
       <h1>Statistics</h1>
       <p>good {stats[0]}</p>
       <p>neutral {stats[1]}</p>
       <p>bad {stats[2]}</p>
-      <p>all {stats[0]+stats[1]+stats[2]}</p>
+      <p>all {sum}</p>
+      <p>avarage {avag}</p>
+      <p>positive {stats[0]/sum*100}%</p>
     </>
   )
 }
