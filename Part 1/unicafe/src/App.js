@@ -20,6 +20,14 @@ const Statistics = ({stats}) =>{
   const sum = stats[0]+stats[1]+stats[2]
   const avag = (stats[0]-stats[2])/sum
 
+  if(stats[0]+stats[1]+stats[2] === 0){
+    return(
+      <>
+        <h1>Statistics</h1>
+        <p>No feedbacks we're given</p>
+      </>
+    )
+  }
   return(
     <>
       <h1>Statistics</h1>
