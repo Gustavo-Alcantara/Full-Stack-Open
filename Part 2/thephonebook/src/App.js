@@ -36,7 +36,13 @@ const App = () => {
       alert(`${newNumber} already exists`)
     }
     else{
-      setPersons(persons.concat(newperson))
+      axios
+        .post('http://localhost:3001/persons', newperson)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
   return (
