@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -8,11 +8,11 @@ const App = () => {
 
 
   useEffect(() => {
-  axios
-    .get('http://localhost:3001/persons')
-    .then(response => {
-      setPersons(response.data)
-    })
+    personService
+      .getAll()
+      .then(response => {
+        setPersons(response.data)
+      })
   }, [])
 
 
@@ -36,8 +36,7 @@ const App = () => {
       alert(`${newNumber} already exists`)
     }
     else{
-      axios
-        .post('http://localhost:3001/persons', newperson)
+      personService.create(newperson)
         .then(response => {
           setPersons(persons.concat(response.data))
           setNewName('')
