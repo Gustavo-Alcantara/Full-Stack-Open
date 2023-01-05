@@ -12,8 +12,16 @@ const App = () => {
   }
   const handleSubmit = (event) =>{
     event.preventDefault()
-    var newperson = {name: newName}
-    setPersons(persons.concat(newperson))
+    var newperson = { name: newName }
+    console.log(persons)
+    console.log(newperson)
+
+    if(persons.find(person => person.name === newperson.name)){
+      alert(`${newName} already exists`)
+    }
+    else{
+      setPersons(persons.concat(newperson))
+    }
   }
   return (
     <div>
