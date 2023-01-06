@@ -1,5 +1,7 @@
+const { response } = require('express')
 const express = require('express')
 const app = express()
+var today = new Date();
 
 let persons = [
     {
@@ -31,10 +33,11 @@ app.get('/', (request, response) => {
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
-app.get('/api/persons/:id', (request, response) => {
-    const id = request.params.id
-    const person = persons.find(person => person.id == id)
-    response.json(person)
+app.get('/info', (req,res)=>{
+    res.send(`
+        <p>Phonebook has info for ${persons.length} people</p>
+        <p>${today}</p>
+        `)
 })
 
 const PORT = 3001
