@@ -27,13 +27,13 @@ const App = () => {
       number: newNumber 
     }
 
-    console.log(newperson)
+    console.log(newperson);
 
     if(persons.find(person => person.name === newperson.name)){
-      alert(`${newName} already exists`)
+      alert(`${newName} already exists`);
     }
     else if(persons.find(person => person.number === newperson.number)){
-      alert(`${newNumber} already exists`)
+      alert(`${newNumber} already exists`);
     }
     else{
       personService.create(newperson)
@@ -41,7 +41,21 @@ const App = () => {
           setPersons(persons.concat(response.data))
           setNewName('')
           setNewNumber('')
-        })
+        });
+    }
+  }
+  const handleDelete = (event) =>{
+    const id = event.currentTarget.id
+    const name = event.target.getAttribute("data-name")
+    const newpersons = persons.filter(person => person.name != name)
+    console.log(newpersons)
+
+    if(window.confirm(`Delete ${name}?`)){
+      personService.Delete(id)
+        .then(response =>{
+          console.log(response)
+          setPersons(newpersons)
+      })
     }
   }
   return (
@@ -49,14 +63,21 @@ const App = () => {
       <h2>Phonebook</h2>
       <PersonForm handleSubmit={handleSubmit} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
       <h3>Numbers</h3>
-      <Persons persons={persons}/>
+      <Persons persons={persons} handleDelete={handleDelete}/>
     </div>
   )
 }
-const Persons = ({persons})=>{
+const Persons = (props)=>{
+  const persons = props.persons
   return(
     <ul>
-      {persons.map(person => <li key={person.name}>{person.name}: {person.number}</li>)}
+      {persons.map(person => 
+        <>
+          <div>
+            <li key={person.id}>{person.name}: {person.number}</li><button onClick={props.handleDelete} id={person.id} data-name={person.name}>Delete</button>
+          </div>
+        </>
+      )}
     </ul>
   )
 }
