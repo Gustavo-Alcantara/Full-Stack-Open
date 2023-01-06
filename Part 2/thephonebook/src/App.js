@@ -5,7 +5,7 @@ const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
-
+  const [notificationMessage, setNotificationMessage] = useState('')
 
   useEffect(() => {
     personService
@@ -41,6 +41,10 @@ const App = () => {
           setPersons(persons.concat(response.data))
           setNewName('')
           setNewNumber('')
+          setNotificationMessage(`Added ${newName}`)
+          setTimeout(() => {
+            setNotificationMessage('')
+          }, 2000)
         });
     }
   }
@@ -60,6 +64,7 @@ const App = () => {
   }
   return (
     <div>
+      <Notification message={notificationMessage}/>
       <h2>Phonebook</h2>
       <PersonForm handleSubmit={handleSubmit} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
       <h3>Numbers</h3>
@@ -95,5 +100,23 @@ const PersonForm = (props) =>{
     </form>
   )
 }
-
+const Notification = ({ message }) => {
+  const style = {
+    color: 'green',
+    background: 'lightgrey',
+    borderStyle: 'solid',
+    fontSize: 20,
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10
+  }
+  if (message === '') {
+    return null
+  }
+  return (
+    <div style={style}>
+      {message}
+    </div>
+  )
+}
 export default App
